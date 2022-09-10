@@ -1,17 +1,18 @@
-var builder = WebApplication.CreateBuilder(args);
+using SocialMedia.Infrastructure;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+{
+    builder.Services.AddInfrastructure(builder.Configuration);
+}
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+{
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.Run();
+}
