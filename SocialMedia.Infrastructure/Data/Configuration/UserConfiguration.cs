@@ -31,7 +31,7 @@ namespace SocialMedia.Infrastructure.Data.Configuration
                 .IsUnicode(false);
 
             builder.Property(e => e.Telephone)
-                .HasColumnName("Telefoo")
+                .HasColumnName("Telefono")
                 .HasMaxLength(10)
                 .IsUnicode(false);
 

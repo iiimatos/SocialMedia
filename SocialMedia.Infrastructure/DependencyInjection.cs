@@ -12,6 +12,7 @@ namespace SocialMedia.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IPostRepository, PostRepository>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<SocialMediaContext>(options => options.UseSqlServer(configuration.GetConnectionString("SocialMedia")));
             return services;
         }
