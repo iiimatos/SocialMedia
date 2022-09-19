@@ -7,7 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 {
-    builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddNewtonsoftJson(options =>
+    builder.Services.AddControllers(options =>
+    {
+        options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+        options.Filters.Add<GlobalExceptionFilter>();
+    }).AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     }).ConfigureApiBehaviorOptions(_ => { });
