@@ -12,6 +12,8 @@ namespace SocialMedia.Infrastructure.Data.Configuration
 
             builder.ToTable("Usuario");
 
+            builder.Property(e => e.UserID).HasColumnName("IdUsuario");
+
             builder.Property(e => e.LastName)
                 .HasColumnName("Apellidos")
                 .HasMaxLength(50)
