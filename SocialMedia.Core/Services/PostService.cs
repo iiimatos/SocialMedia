@@ -5,41 +5,41 @@ namespace SocialMedia.Core.Services
 {
     public class PostService : IPostService
     {
-        private readonly IPostRepository _postRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PostService(IPostRepository postRepository, IUserRepository userRepository)
+        public PostService(IUnitOfWork unitOfWork)
         {
-            _postRepository = postRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Post> GetPostById(int id)
         {
-            return await _postRepository.GetPostById(id);
+            return await _unitOfWork.PostRepository.GetByIdAsync(id);
         }
 
         public async Task<IReadOnlyList<Post>> GetPosts()
         {
-            return await _postRepository.GetPosts();
+            return await _unitOfWork.PostRepository.GetAllAsync();
         }
 
         public async Task InsertPost(Post post)
         {
-            var user = await _userRepository.GetUserById(post.UserId);
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(post.UserId);
             if (user == null) throw new Exception("User doesn't exist.");
             if (post.Description.Contains("Sexo")) throw new Exception("Content not allowed");
-            await _postRepository.InsertPost(post);
+            await _unitOfWork.PostRepository.AddAsync(post);
         }
 
         public async Task<bool> UpdatePost(Post post)
         {
-            return await _postRepository.UpdatePost(post);
+            await _unitOfWork.PostRepository.UpdateAsync(post);
+            return true;
         }
 
         public async Task<bool> DeletePost(int id)
         {
-            return await _postRepository.DeletePost(id);
+            await _unitOfWork.PostRepository.DeleteAsync(id);
+            return true;
         }
     }
 }
