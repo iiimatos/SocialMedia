@@ -1,6 +1,7 @@
 ﻿using SocialMedia.Core.Entities;
 using SocialMedia.Core.Enumerations;
 using SocialMedia.Core.Interfaces;
+using SocialMedia.Core.QueryFilters;
 
 namespace SocialMedia.Core.Services
 {
@@ -13,14 +14,31 @@ namespace SocialMedia.Core.Services
             _unitOfWork = unitOfWork;
         }
 
+        public IEnumerable<Post> GetPosts(PostQueryFilter filters)
+        {
+            var posts = _unitOfWork.PostRepository.GetAll();
+
+            if(filters.UserId != null)
+            {
+                posts = posts.Where(x => x.UserId == filters.UserId);
+            }
+
+            if(filters.Date != null)
+            {
+                posts = posts.Where(x => x.Date.ToShortDateString() == filters.Date.Value.ToShortDateString());
+            }
+
+            if(filters.Description != null)
+            {
+                posts = posts.Where(x => x.Description.ToLower().Contains(filters.Description.ToLower()));
+            }
+
+            return posts;
+        }
+
         public async Task<Post> GetPostById(int id)
         {
             return await _unitOfWork.PostRepository.GetByIdAsync(id);
-        }
-
-        public IEnumerable<Post> GetPosts()
-        {
-            return _unitOfWork.PostRepository.GetAll();
         }
 
         public async Task InsertPost(Post post)
