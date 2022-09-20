@@ -1,4 +1,4 @@
-﻿namespace SocialMedia.Core.Enumerations
+﻿namespace SocialMedia.Core.Exceptions
 {
     public class BusinessException : Exception
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SocialMedia.Core.Enumerations;
+using SocialMedia.Core.Exceptions;
 using System.Net;
 
 namespace SocialMedia.Infrastructure.Filters
