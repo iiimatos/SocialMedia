@@ -1,4 +1,6 @@
-﻿namespace SocialMedia.Api.Responses
+﻿using SocialMedia.Core.CustomEntities;
+
+namespace SocialMedia.Api.Responses
 {
     public class ApiReponse<T>
     {
@@ -8,5 +10,6 @@
         }
 
         public T Data { get; set; }
+        public MetaData? Meta { get; set; }
     }
 }
