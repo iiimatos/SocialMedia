@@ -9,9 +9,10 @@ using SocialMedia.Core.Interfaces;
 using SocialMedia.Core.QueryFilters;
 using SocialMedia.Infrastructure.Interfaces;
 using System.Net;
-
+ 
 namespace SocialMedia.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -27,8 +28,13 @@ namespace SocialMedia.Api.Controllers
             _uriService = uriService;
         }
 
+        /// <summary>
+        /// Retrieve all posts
+        /// </summary>
+        /// <param name="filters">Filters to apply</param>
+        /// <returns></returns>
         [HttpGet(Name = nameof(GetAll))]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiReponse<IEnumerable<PostDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetAll([FromQuery] PostQueryFilter filters)
         {

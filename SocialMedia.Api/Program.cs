@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using SocialMedia.Core.CustomEntities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Core.Services;
@@ -8,12 +9,20 @@ using SocialMedia.Infrastructure.Filters;
 using SocialMedia.Infrastructure.Interfaces;
 using SocialMedia.Infrastructure.Repositories;
 using SocialMedia.Infrastructure.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 {
+    builder.Services.AddSwaggerGen(doc =>
+    {
+        doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Social Media Api v1", Version = "v1" });
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        doc.IncludeXmlComments(xmlPath);
+    });
     builder.Services.AddControllers(options =>
     {
         options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
@@ -52,5 +61,11 @@ var app = builder.Build();
     app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.RoutePrefix = String.Empty;
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Social Media Api v1");
+    });
     app.Run();
 }
