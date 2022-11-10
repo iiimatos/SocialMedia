@@ -38,6 +38,7 @@ builder.Services.AddControllers();
     builder.Services.Configure<PaginationOptions>(builder.Configuration.GetSection("Pagination"));
 
     builder.Services.AddTransient<IPostService, PostService>();
+    builder.Services.AddTransient<ISecurityService, SecurityService>();
     builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
     builder.Services.AddSingleton<IUriService>(provider =>
     {
