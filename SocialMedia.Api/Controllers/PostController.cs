@@ -13,7 +13,7 @@ using System.Net;
 
 namespace SocialMedia.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]

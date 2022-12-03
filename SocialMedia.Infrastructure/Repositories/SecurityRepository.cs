@@ -10,7 +10,7 @@ namespace SocialMedia.Infrastructure.Repositories
         public SecurityRepository(SocialMediaContext context) : base(context) { }
         public async Task<Security> GetLoginByCredential(UserLogin login)
         {
-            return await _entities.FirstOrDefaultAsync(x => x.User == login.User && x.Password == login.Password);
+            return await _entities.FirstOrDefaultAsync(x => x.User == login.User);
         }
 
         public async Task<bool> UserExist(Security security)

@@ -15,6 +15,7 @@ namespace SocialMedia.Infrastructure.Data.Configuration
 
             builder.Property(e => e.Id)
                 .HasColumnName("IdSeguridad");
+
             builder.Property(e => e.User)
                 .HasColumnName("Usuario")
                 .IsRequired()

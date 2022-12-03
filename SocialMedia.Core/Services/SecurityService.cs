@@ -7,6 +7,7 @@ namespace SocialMedia.Core.Services
     public class SecurityService : ISecurityService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public SecurityService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
